@@ -1,0 +1,120 @@
+$body-font-size: 14px;
+$body-line-height: 1.5;
+$body-color: #333;
+
+$container-padding: 20px;
+$container-border-radius: 5px;
+
+$table-cell-padding: 10px;
+$table-border: 1px solid #ccc;
+
+$th-bg-color: #f2f2f2;
+$th-font-size: 12px;
+$th-font-weight: bold;
+$th-text-transform: uppercase;
+$th-letter-spacing: 1px;
+
+$td-font-size: 12px;
+
+$img-size: 50px;
+$img-border-radius: 50%;
+
+$symbol-font-size: 1.5em;
+$symbol-font-weight: bold;
+
+$high-price-color: green;
+$low-price-color: red;
+$price-font-weight: bold;
+
+$breakpoint: 768px;
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  font-size: $body-font-size;
+  line-height: $body-line-height;
+  color: $body-color;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: $container-padding;
+  border-radius: $container-border-radius;
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+  word-wrap: break-word;
+
+  th,
+  td {
+    padding: $table-cell-padding;
+    text-align: left;
+    vertical-align: middle;
+    border: $table-border;
+  }
+
+  th {
+    background-color: $th-bg-color;
+    font-size: $th-font-size;
+    font-weight: $th-font-weight;
+    text-transform: $th-text-transform;
+    letter-spacing: $th-letter-spacing;
+  }
+
+  td {
+    font-size: $td-font-size;
+
+    img {
+      width: $img-size;
+      height: $img-size;
+      object-fit: cover;
+      object-position: center;
+      border-radius: $img-border-radius;
+    }
+
+    &.symbol {
+      font-size: $symbol-font-size;
+      font-weight: $symbol-font-weight;
+    }
+
+    &.high-price {
+      color: $high-price-color;
+      font-weight: $price-font-weight;
+    }
+
+    &.low-price {
+      color: $low-price-color;
+      font-weight: $price-font-weight;
+    }
+  }
+}
+
+@media only screen and (max-width: $breakpoint) {
+  table {
+    font-size: $td-font-size;
+
+    th,
+    td {
+      padding: calc($table-cell-padding / 2);
+    }
+  }
+
+  .container {
+    padding: calc($container-padding / 2);
+  }
+
+  img {
+    width: calc($img-size / 1.5);
+    height: calc($img-size / 1.5);
+  }
+
+  .symbol {
+    font-size: calc($symbol-font-size / 1.5);
+  }
+}
