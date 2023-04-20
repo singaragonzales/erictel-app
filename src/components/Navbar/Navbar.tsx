@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react'
-import './style.scss'
 import ProfileImage from '../../assets/profile.png'
 import {GrLogout} from 'react-icons/gr'
 import {FaUser} from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../Login/AuthContext'
+import './style.scss'
 
 function Navbar() {
 

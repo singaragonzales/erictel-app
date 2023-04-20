@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState, useRef} from 'react'
-import "./style.scss"
 import { useNavigate, useLocation } from 'react-router-dom'
 import Navbar from '../Navbar/Navbar'
 import { AuthContext } from '../Login/AuthContext';
 import axios from 'axios';
 import ProfileImage from '../../assets/profile.png'
-import { GrMail } from 'react-icons/gr';
 import { Toast } from 'primereact/toast';
+import "./style.scss"
 
 interface Field{
     value: string,
@@ -30,11 +29,7 @@ function Profile() {
         error: ""
     });
     const [showLogin, setShowLogin] = useState<boolean>(true);
-    
-
     const [userId, setUserId] = useState({})
-    const [base64, setBase64] = useState<string>('')
-    const [userInfo, setUserInfo] = useState<any>(null)
 
     useEffect(() => {
         if (localStorage.getItem('isLoggedIn') !== "true") {
@@ -43,7 +38,6 @@ function Profile() {
             setUserId(location.state.id)
             axios.get(`http://localhost:3000/users/${location.state.id}`).then((response:any) => {
                 console.log(response)
-                setUserInfo(response.data)
                 setDescription({...description, value: response.data.description})
                 setName({...name, value: response.data.name})
                 setImage(response.data.profile)
@@ -71,13 +65,6 @@ function Profile() {
 
     const validateError = (e:any) => {
         let error = false;
-        // if(password.value.trim() === ""){
-        //     setPassword({
-        //         ...password,
-        //         error: "Debe colocar una contraseña"
-        //     })
-        //     error = true;
-        // }
         if(name.value.trim() === ""){
             setName({
                 ...name,
@@ -119,115 +106,72 @@ function Profile() {
     <React.Fragment>
         <Toast ref={toast} />
         <Navbar/>
-            <section className='profile-section'>
-                <div className='login-box'>
-                    <h2>
-                        {'Edit Profile'}
-                    </h2>
+        <section className='profile-section'>
+            <div className='login-box'>
+                <h2>
+                    {'Edit Profile'}
+                </h2>
                     <div className='profile-container'>
-                        <div className="user-profile">
-                            <div className="card">
-                                <img src={image === "" ? ProfileImage: image} alt="" />
-                                <label htmlFor="input-file">Upload Image</label>
-                                <input type="file" accept='image/jpeg, image/png, image/jpg' id='input-file'
-                                    onChange={handleImageUpload}
-                                />
-                            </div>
+                    <div className="user-profile">
+                        <div className="card">
+                            <img src={image === "" ? ProfileImage: image} alt="" />
+                            <label htmlFor="input-file">Upload Image</label>
+                            <input type="file" accept='image/jpeg, image/png, image/jpg' id='input-file'
+                                onChange={handleImageUpload}
+                            />
                         </div>
-                        <form action="">
-                            <div className="input-box">
-                                <input 
-                                    type="text" 
-                                    required 
-                                    value={name.value}
-                                    onChange={(e:any) => {
-                                        setName({
-                                            ...name, 
-                                            value:e.target.value,
-                                            error: ""
-                                        })}
-                                    }
-                                />
-                                <label htmlFor="">Name</label>
-                            </div>
-                            {name.error !== "" && (
-                                <span className='error'>{name.error}</span>
-                            )}
-                            <div className="input-box">
-                                <input 
-                                    type="text" 
-                                    required 
-                                    value={description.value}
-                                    onChange={(e:any) => {
-                                        setDescription({
-                                            ...description, 
-                                            value:e.target.value,
-                                            error: ""
-                                        })}
-                                    }
-                                />
-                                <label htmlFor="">Description</label>
-                            </div>
-                            {description.error !== "" && (
-                                <span className='error'>{description.error}</span>
-                            )}
-                            <button type='button'
-                                disabled={checkDisabled()}
-                                onClick={(e:any) => {
-                                    validateError(e)
-                                }}
-                            >
-                                {'Save'}
-                            </button>
-                        </form>
                     </div>
-                    
+                    <form action="">
+                        <div className="input-box">
+                            <input 
+                                type="text" 
+                                required 
+                                value={name.value}
+                                onChange={(e:any) => {
+                                    setName({
+                                        ...name, 
+                                        value:e.target.value,
+                                        error: ""
+                                    })}
+                                }
+                            />
+                            <label htmlFor="">Name</label>
+                        </div>
+                        {name.error !== "" && (
+                            <span className='error'>{name.error}</span>
+                        )}
+                        <div className="input-box">
+                            <input 
+                                type="text" 
+                                required 
+                                value={description.value}
+                                onChange={(e:any) => {
+                                    setDescription({
+                                        ...description, 
+                                        value:e.target.value,
+                                        error: ""
+                                    })}
+                                }
+                            />
+                            <label htmlFor="">Description</label>
+                        </div>
+                        {description.error !== "" && (
+                            <span className='error'>{description.error}</span>
+                        )}
+                        <button type='button'
+                            disabled={checkDisabled()}
+                            onClick={(e:any) => {
+                                validateError(e)
+                            }}
+                        >
+                            {'Save'}
+                        </button>
+                    </form>
                 </div>
-            </section>
-        </React.Fragment>
-        // <section className='profile-section'>
-        //     <div className='container'>
-        //         <header>Edit Profile</header>
-        //         <div className='profile-container'>
-        //             <div className="user-profile">
-        //                 <div className="card">
-        //                     <h1>{userInfo?.name}</h1>
-        //                     <p>{userInfo?.description}</p>
-        //                     <img src={base64 === "" ? ProfileImage: base64} alt="" />
-        //                     <label htmlFor="input-file">Upload Image</label>
-        //                     <input type="file" accept='image/jpeg, image/png, image/jpg' id='input-file'
-        //                         onChange={handleImageUpload}
-        //                     />
-        //                 </div>
-        //             </div>
-        //             <form action="">
-        //                 <div className="form first">
-        //                     <div className="details personal">
-        //                         <div className="fields">
-        //                             <div className="input-box">
-        //                                 <input type="text" required placeholder='Full Name'/>
-        //                                 <label htmlFor="">Full Name</label>
-        //                             </div>
-        //                             <div className="input-box">
-        //                                 <input type="text" placeholder='Description'/>
-        //                                 <label htmlFor="">Description</label>
-        //                             </div>
-        //                             <hr />
-        //                             <div className="input-box">
-        //                                 <input type="password" placeholder='Password'/>
-        //                                 <label htmlFor="">Password</label>
-        //                             </div>
-        //                             <button>Save</button>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             </form>
-        //         </div>
-        //     </div>
-        // </section>
-    // </React.Fragment>
-    
-    
+                
+            </div>
+        </section>
+    </React.Fragment>
   )
 }
 
