@@ -37,7 +37,6 @@ function Profile() {
         }else{
             setUserId(location.state.id)
             axios.get(`http://localhost:3000/users/${location.state.id}`).then((response:any) => {
-                console.log(response)
                 setDescription({...description, value: response.data.description})
                 setName({...name, value: response.data.name})
                 setImage(response.data.profile)

@@ -6,7 +6,6 @@ import Profile from "./components/Profile/Profile";
 import {MemoizedAuthProvider} from "./components/Login/AuthContext";
 
 function App() {
-  console.log("holaaaa")
   return (
     <MemoizedAuthProvider>
       <div className="App">

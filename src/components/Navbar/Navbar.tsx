@@ -26,7 +26,6 @@ function Navbar() {
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user") || ""))
-        console.log(JSON.parse(localStorage.getItem("user") || ""))
     }, [])
 
     const handleLogout = () => {
